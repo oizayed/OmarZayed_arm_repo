@@ -9,7 +9,7 @@
 #define LCD_MODE_4_PIN		0
 #define LCD_MODE_8_PIN		1
 
-#include <e15_arm_repo/utils/STD_Types.h>
+#include <OmarZayed_arm_repo/utils/STD_Types.h>
 #include "../../utils/Bit_Math.h"
 #include "../../config/LCD_cfg.h"
 

@@ -8,11 +8,11 @@
 #define SevSeg_COMMMON_CATHOD		STD_low
 #define SevSeg_COMMMON_ANOD			STD_high
 
-#include <e15_arm_repo/utils/STD_Types.h>
+#include "../../utils/STD_Types.h"
 #include "../../utils/Bit_Math.h"
 
-#include "../../MCAL/PORT_DRIVER/PORT.h"
-#include "../../MCAL/DIO/DIO.h"
+#include "../../mcal/PORT_DRIVER/PORT.h"
+#include "../../mcal/DIO/DIO.h"
 
 #include "../../config/SevSegments_cfg.h"
 #include "SevSegments.h"

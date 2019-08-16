@@ -7,10 +7,10 @@
  */
 #define MAX_NUM_OF_CH_IN_PORT       8
 
-#include "e15_arm_repo/utils/STD_Types.h"
-#include "e15_arm_repo/utils/Bit_Math.h"
+#include "OmarZayed_arm_repo/utils/STD_Types.h"
+#include "OmarZayed_arm_repo/utils/Bit_Math.h"
 #include "../../config/port_cfg.h"
-#include "e15_arm_repo/mcal/mcu_hw.h"
+#include "OmarZayed_arm_repo/mcal/mcu_hw.h"
 #include "port_types.h"
 #include "port.h"
 
