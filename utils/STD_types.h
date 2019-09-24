@@ -28,6 +28,12 @@ typedef enum
 
 typedef enum
 {
+    STD_off=0,
+    STD_on=!STD_off
+}STD_BoolType;
+
+typedef enum
+{
     STD_Suspended=0,
     STD_Active=!STD_Suspended
 }STD_StatusType;
@@ -38,10 +44,18 @@ typedef enum
     true=!false
 }boolean;
 
-typedef void(*Ptr2FuncType)(void);
+typedef enum
+{
+    DISABLE=0,
+    ENABLE=1
+}STD_EnType;
 
-#define DISABLE         0
-#define ENABLE          1
+typedef enum
+{
+    E_OK,
+    E_NOT_OK
+}Std_ReturnType;
+typedef void(*Ptr2FuncType)(void);
 
 
 

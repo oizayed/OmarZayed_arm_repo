@@ -7,10 +7,10 @@
  */
 #define MAX_NUM_OF_CH_IN_PORT       8
 
-#include "OmarZayed_arm_repo/utils/STD_Types.h"
-#include "OmarZayed_arm_repo/utils/Bit_Math.h"
+#include "e15_arm_repo/utils/STD_Types.h"
+#include "e15_arm_repo/utils/Bit_Math.h"
 #include "../../config/port_cfg.h"
-#include "OmarZayed_arm_repo/mcal/mcu_hw.h"
+#include "../mcu_hw.h"
 #include "port_types.h"
 #include "port.h"
 
@@ -21,7 +21,7 @@ void PORT_init(void)
     uint8 i;
     Port_IdType PortId;
     Port_ChIdType ChId;
-    PORT_RegType* PORT_Addr;
+    volatile PORT_RegType* PORT_Addr;
     for (i = 0; i < PORT_NUM_OF_ACTIVATED_CH; ++i)
     {
         PortId = i/ MAX_NUM_OF_CH_IN_PORT;
@@ -60,13 +60,15 @@ void PORT_init(void)
         }
 
         /* set channel mode */
-        if(PortCfgArr[i].Mode == Port_Mode_DIO)
+        if(PortCfgArr[i].Mode == PORT_MODE_PIN_X_DIO)
         {
             CLR_BIT(PORT_Addr->GPIOAFSEL, ChId);
         }
         else
         {
             SET_BIT(PORT_Addr->GPIOAFSEL, ChId);
+
+            PORT_Addr->GPIOPCTL |= ( PortCfgArr[i].Mode << (ChId*4) );
         }
 
         /* set Interrupt configuration */
@@ -79,12 +81,10 @@ void PORT_init(void)
             SET_BIT(PORTA_REG.GPIOIM, ChId);
             if(PortCfgArr[i].Interrupt == Port_IntRisingEdge)
             {
-                CLR_BIT(PORT_Addr->GPIOIBE,ChId);
                 SET_BIT(PORT_Addr->GPIOIEV,ChId);
             }
             else if(PortCfgArr[i].Interrupt == Port_IntFallingEdge)
             {
-                CLR_BIT(PORT_Addr->GPIOIBE,ChId);
                 CLR_BIT(PORT_Addr->GPIOIEV,ChId);
             }
             else if(PortCfgArr[i].Interrupt == Port_IntBothEdges)
@@ -92,6 +92,7 @@ void PORT_init(void)
                 SET_BIT(PORT_Addr->GPIOIBE,ChId);
             }
         }
+
         /* set Internal Attachment configuration */
         if(PortCfgArr[i].AttachedRes == Port_InternalAttach_PullUpRes)
         {
@@ -103,6 +104,7 @@ void PORT_init(void)
         {
             SET_BIT(PORT_Addr->GPIOODR,ChId);
         }
+
         /*set current strength configuration */
         if(PortCfgArr[i].CurrentDrive == Port_CurrDrive_2mA)
         {
